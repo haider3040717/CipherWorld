@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1 style="text-align: center; color: #0a1a33;"><strong>Caesar Cipher</strong></h1>
+    <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px; position: relative;">
+        <!-- <button id="toggle-btn" onclick="toggleForm()" style="position: absolute; top: 20px; right: 20px; background-color: #0a1a33; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;">Switch to Decryption</button> -->
+        <a href="{% url 'decrypt_caesar' %}" style="position: absolute; top: 20px; right: 20px; background-color: #0a1a33; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; text-decoration: none;">Switch to Decryption</a>
+
+        <h2 id="form-title" style="text-align: center; color: #0a1a33;">Encryption</h2>
+        <form action="" method="post" style="margin-bottom: 20px;" onsubmit="return retainText()">
+            {% csrf_token %}
+            <label id="form-label" for="inputText" style="display: block; margin-bottom: 10px; font-weight: bold;">Enter Plain Text:</label>
+            <input type="text" id="inputText" name="inputText" required style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px;">
+            <button id="form-button" type="submit" style="background-color: #0a1a33; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Encrypt</button>
+        </form>
+
+        <div id="output-div" style="margin-top: 20px;">
+            <h3 style="margin-bottom: 10px; color: #0a1a33;">Output:</h3>
+            <p id="output-text" style="padding: 10px; background-color: #f1f1f1; border: 1px solid #ddd; border-radius: 4px;">{{ cipher_text }}</p>
+        </div>
+    </div>
+
+    <script>
+        function retainText() {
+            const input = document.getElementById('inputText');
+            localStorage.setItem('inputText', input.value); // Store the input value in localStorage
+            return true; // Allow the form submission
+        }
+
+        // Load the saved text when the page reloads
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedText = localStorage.getItem('inputText');
+            if (savedText) {
+                document.getElementById('inputText').value = savedText;
+            }
+        });
+    </script>
+{% endblock %}
+
+

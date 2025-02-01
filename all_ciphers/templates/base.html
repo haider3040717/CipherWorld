@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Ciphers</title>
+    <style>
+        /* General Reset */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #0a1a33; /* Dark navy blue */
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown button {
+            background-color: #142952; /* Slightly lighter navy blue */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .dropdown button:hover {
+            background-color: #1e3d78; /* Even lighter navy */
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #1a2d50;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .dropdown-menu a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #25487a;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .dropdown button {
+                width: 100%;
+            }
+        }
+    </style>
+
+
+    <!-- <script>
+        function toggleForm() {
+            const formTitle = document.getElementById('form-title');
+            const label = document.getElementById('form-label');
+            const button = document.getElementById('form-button');
+            const toggleButton = document.getElementById('toggle-btn');
+            const outputText = document.getElementById('output-text');
+
+            // Toggle form title, label, and button text
+            if (formTitle.innerText === 'Encryption') {
+                formTitle.innerText = 'Decryption';
+                label.innerText = 'Enter Encrypted Text:';
+                button.innerText = 'Decrypt';
+                toggleButton.innerText = 'Switch to Encryption';
+            } else {
+                formTitle.innerText = 'Encryption';
+                label.innerText = 'Enter Plain Text:';
+                button.innerText = 'Encrypt';
+                toggleButton.innerText = 'Switch to Decryption';
+            }
+
+            // Clear the output text
+            outputText.innerText = '';
+        }
+    </script> -->
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f9; color: #333;">
+    <header style="margin-bottom: 5vh;">
+        <!-- <h1>Cipher Encryption</h1> -->
+        <a href="{% url 'home' %}" style="color: white; text-decoration: none; font-size: 24px; font-weight: bold; padding: 10px 20px; border-radius: 8px; display: inline-block; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);">
+            Cipher World
+        </a>
+        
+        <nav>
+            <div class="dropdown">
+                <button>Choose Cipher</button>
+                <div class="dropdown-menu">
+                    <a href="{% url 'caesar_encrypt' %}">Caesar Cipher</a>
+                    <a href="{% url 'vigenere_encrypt' %}">Vigenère Cipher</a>
+                    <a href="{% url 'encrypt_otp' %}">OTP Cipher</a>
+                    <a href="{% url 'playfair_encrypt' %}">Play-Fair Square Cipher</a>
+                    <a href="{% url 'hill_encrypt' %}">Hill Cipher</a>
+                    <a href="{% url 'rail_fence_encrypt' %}">Rail Fence Cipher</a>
+                    <a href="{% url 'row_column_encrypt' %}">Row-Column Cipher</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    {% block content %}
+        <!-- All block content goes here -->
+    {% endblock %}
+</body>
+</html>

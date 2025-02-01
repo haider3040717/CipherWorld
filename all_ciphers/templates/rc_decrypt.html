@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1 style="text-align: center; color: #0a1a33;"><strong>Row-Column Cipher</strong></h1>
+    <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px; position: relative;">
+        <!-- <button id="toggle-btn" onclick="toggleForm()" style="position: absolute; top: 20px; right: 20px; background-color: #0a1a33; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;">Switch to Decryption</button> -->
+        <a id="toggle-btn" href="{% url 'row_column_encrypt' %}" onclick="toggleForm()" style="position: absolute; top: 20px; right: 20px; background-color: #0a1a33; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; text-decoration: none;">Switch to Encryption</a>
+        <h2 id="form-title" style="text-align: center; color: #0a1a33;">Decryption</h2>
+        <form action="" method="post" style="margin-bottom: 20px;" onsubmit="return retainText()">
+            {% csrf_token %}
+            <label id="form-label" for="encryptedTextRC" style="display: block; margin-bottom: 10px; font-weight: bold;">Enter Encrypted Text:</label>
+            <input type="text" id="encryptedTextRC" name="encryptedTextRC" required style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px;">
+            <label id="form-label" for="key" style="display: block; margin-bottom: 10px; font-weight: bold;">Key:</label>
+            <input type="text" id="key" name="key" required style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px;">
+            <button id="form-button" type="submit" style="background-color: #0a1a33; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Decrypt</button>
+        </form>
+
+        <div id="output-div" style="margin-top: 20px;">
+            <h3 style="margin-bottom: 10px; color: #0a1a33;">Output:</h3>
+            <p id="output-text" style="padding: 10px; background-color: #f1f1f1; border: 1px solid #ddd; border-radius: 4px;" name="cipher">{{ plain_text }}</p>
+        </div>
+        <!-- <a href="{% url 'decrypt_caesar' %}">Decrypt</a> -->
+    </div>
+
+    <!-- <script>
+        function retainText() {
+            const input = document.getElementById('encryptedTextVigenere');
+            localStorage.setItem('encryptedTextVigenere', input.value); // Store the input value in localStorage
+            return true; // Allow the form submission
+        }
+
+        // Load the saved text when the page reloads
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedText = localStorage.getItem('encryptedTextVigenere');
+            if (savedText) {
+                document.getElementById('encryptedTextVigenere').value = savedText;
+            }
+        });
+    </script> -->
+
+    <script>
+        function retainText() {
+            // Store the input value for encrypted text
+            const encryptedInput = document.getElementById('encryptedTextRC');
+            localStorage.setItem('encryptedTextRC', encryptedInput.value);
+    
+            // Store the input value for the key
+            const keyInput = document.getElementById('key');
+            localStorage.setItem('key', keyInput.value);
+    
+            return true; // Allow the form submission
+        }
+    
+        // Load the saved text and key when the page reloads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Retrieve and populate the encrypted text
+            const savedText = localStorage.getItem('encryptedTextRC');
+            if (savedText) {
+                document.getElementById('encryptedTextRC').value = savedText;
+            }
+    
+            // Retrieve and populate the key
+            const savedKey = localStorage.getItem('key');
+            if (savedKey) {
+                document.getElementById('key').value = savedKey;
+            }
+        });
+    </script>
+    
+{% endblock %}
